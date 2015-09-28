@@ -1,0 +1,323 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Documenting REST APIs</title>
+
+		<meta name="author" content="Oliver Trosien">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/black.css" id="theme">
+
+		<!-- Code syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<style type="text/css">
+		.epred {
+			color:#ed3d3e;
+		}
+		.epgreen {
+			color:#38af5c;
+		}
+		.epyellow {
+			color:#ffe000;
+		}
+		.reveal h2, .reveal h3 {
+			text-transform: none;
+		}
+		.reveal a {
+			color:#8dcffc;
+		}
+		</style>
+
+		<!-- FontAwesome -->
+		<link rel="stylesheet" href="lib/css/font-awesome/css/font-awesome.min.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+		  <div class="fork-repo" style="display: none"><a href="https://github.com/epages-de/rnd-microservices-handson" style="z-index:1; position: absolute; top: 0; right: 0%; border: 0px;"><img src="img/fork-me-on-github.png" style="border:0px;" alt="Fork me on GitHub"/></a></div>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+
+				<section>
+					<h2>Documented and Tested Microservices For Fun And Profit</h2>
+					<p><img data-src="img/epages-devs-logo.png" style="border:none; box-shadow:none; background:none; width:150px;" />
+					<p><i class="fa fa-street-view epred"></i> Oliver Trosien, ePages GmbH</p>
+					<p align="right"><small><q class="quote">WTF is a "REST endpoint"? <br/> - Roy Fielding</q></small></p>
+					<aside class="notes">
+						<ul>
+						    <li>Über mich: Langjähriger Softwareentwickler bei ePages.</li>
+						    <li>Fangen wir mit einem einen kleinen Werbeblock an. Was macht ePages?
+						    100.000 Shops, Hostingprovider und Telekommunikations. 
+						    Kooperieren mit über 60 Technologiepartnern
+						    Standorte in Hamburg, Jena, Barcelona, London, New York
+						    Übrigens: wir suchen noch Softwareentwickler für unseren Standort HH
+					     </li>
+						</ul>
+					</aside>
+				</section>
+
+
+				<section>
+					<h2>Documenting REST APIs</h2>
+					<img data-src="img/rest-documentation-and-data.jpg" style="border:none; "/>
+					<p><small><a href="http://apihandyman.io/the-data-the-hypermedia-and-the-documentation/">apihandyman.io</a></small></p>
+					<aside class="notes">
+						<ul>
+							<li>Thema, das unter uns Entwicklern eher unbeliebt ist - Dokumentation.</li>
+							<li>Zwei Teilbereiche: Menschenlesbare Dokumentation (Handbücher, User Guide...), 
+							Maschinenlesbare Dokumentation (IDL)</li>
+							<li>Drei Ziele: vollständig, fehlerfrei, aktuell</li>
+							<li>Lüsungen im Java-Kontext.</li>
+						</ul>
+					</aside>
+				</section>
+
+				<section>
+					<h2>How RESTful are you?</h2>
+					<img data-src="img/maturity-overview.png" style="border:none; box-shadow: 10px 10px 5px #282828;"/>
+					
+					<aside class="notes">
+						<ul>
+							<li>Richardson Maturity Model</li>
+							<li>Level 2: Auf die Idee mit einem GET den Suchindex löschen zu lassen kommt heutzutage nur noch Apache Solr.</li>
+							<li>Je nach Kategorisierung der eigenen API ist eine andere Art der Dokumentation nötig.</li>
+							<li>Martin Fowler: "The Glory of REST" / Level 3 /  Heiligenschein (ernst gemeint?)</li>
+							<li>Auch Level 0-2 APIs haben ihre Daseinsberechtigung, sie sind nur nicht ganz "im Sinne des Erfinders"</li>
+						</ul>
+					</aside>
+				</section>
+
+
+				<section>
+					<h2>How RESTful do you<br/>want to be?</h2>
+					<aside class="notes">
+						<ul>
+							<li>Die Frage sollte daher eher lauten - wo im RMM möchtest du dich platzieren? </li>
+						</ul>
+					</aside>
+				</section>
+
+
+				<section>
+					<h2>Interface Description Languages</h2>
+					<ul style="list-style-type: none; ">
+						<li class="fragment" style="display: inline;"><a href="http://www.w3.org/TR/wsdl">WSDL</a> (2001)</li>
+						<li class="fragment" style="display: inline;"><span class="epred">|</span> <a href="http://www.w3.org/Submission/wadl/">WADL</a> (2009)</li>
+						<li class="fragment" style="display: inline;"><span class="epgreen">|</span> <a hreF="http://swagger.io/">Swagger</a> (2009)</li>
+						<li class="fragment" style="display: inline;"><span class="epred">|</span> <a href="http://restdesc.org/">RESTdesc</a> (2010)</li>
+						<li class="fragment" style="display: inline;"><span class="epgreen">|</span> <a href="http://www.mashery.com/">I/O Docs</a> (2011)</li>
+						<li class="fragment" style="display: inline;"><span class="epred">|</span> <a href="http://tools.ietf.org/html/draft-nottingham-json-home-03">JSON Home</a> (2012)</li>
+						<li class="fragment" style="display: inline;"><span class="epgreen">|</span> <a href="https://raml.org/">RAML</a> (2013)</li>
+						<li class="fragment" style="display: inline;"><span class="epred">|</span> <a href="https://apiblueprint.org/">API Blueprint</a> (2013)</li>
+						<li class="fragment" style="display: inline;"><span class="epgreen">|</span> <a href="http://json-schema.org/latest/json-schema-hypermedia.html">JSON Hyper-Schema</a> (2013)</li>
+						<li class="fragment" style="display: inline;"><span class="epred">|</span> <a href="http://www.markus-lanthaler.com/hydra/spec/latest/core/">Hydra</a> (2014, draft)</li>
+						<li class="fragment" style="display: inline;"><span class="epgreen">|</span> <a href="http://alps.io">ALPS</a> (2014, draft)</li>
+						<li class="fragment" style="display: inline;"><span class="epred">|</span> <a href="https://rawgit.com/uber-hypermedia/specification/master/uber-hypermedia.html">UBER</a> (2015, draft)</li>
+						<li class="fragment" style="display: inline;"><span class="epgreen">|</span> <a href="https://github.com/mikestowe/CPHL">CPHL</a> (2015, brain-storming)</li>
+						<li class="fragment" style="display: inline;">..</li>
+					</ul>
+					<aside class="notes">
+						<ul>
+							<li>WSDL 1.1 als Referenz, 2000 Roy Fieldings Dissertation "Design of Network-based Software Architectures"</li>
+							<li>Swagger ist von den genannten tools sicherlich das populärste - eines der Key features ist die Interaktive Konsole</li>
+							<li>Wir verwenden für einen Teil der API Dokumentation RAML, eine auf YAML basierende Spezifikationssprache.</li>
+							<li>Nachteile von swagger: zu URI-zentriert, keine Unterstützung von Querschnitts-Aspekten (Auth, Errors), "undichte" Abstraktion - zieht ggf. fehlerhafte Rückschlüsse 
+							, groß, schwemmt den Code mit eigenen Annotations auf.</li>
+							<li>
+						</ul>
+					</aside>
+				</section>
+
+
+				<section data-transition="none">
+					<h2>Media Types</h2>
+					<ul>
+						<li class="fragment" style="display: inline;">Plain-old XML</li>
+						<li class="fragment" style="display: inline;"><span class="epred">|</span> Proprietary JSON</li>
+						<li class="fragment" style="display: inline;"> </li>
+						<li class="fragment" style="display: inline;"><span class="epgreen">|</span> <a href="http://stateless.co/hal_specification.html">HAL</a> (2011)</li>
+						<li class="fragment" style="display: inline;"><span class="epred">|</span> <a href="http://json-ld.org/">JSON-LD</a> (2011)</li>
+						<li class="fragment" style="display: inline;"><span class="epgreen">|</span> <a hreF="http://amundsen.com/media-types/collection/">Collection+JSON</a> (2011)</li>
+						<li class="fragment" style="display: inline;"><span class="epred">|</span> <a href="http://www.markus-lanthaler.com/hydra/spec/latest/core/">Hydra</a> (2014)</li>
+						<li class="fragment" style="display: inline;"><span class="epgreen">|</span> <a href="https://github.com/JornWildt/Mason">Mason</a> (2014, draft)</li>
+						<li class="fragment" style="display: inline;"><span class="epred">|</span> <a href="https://github.com/kevinswiber/siren">SIREN</a> (2015, draft)</li>
+						<li class="fragment" style="display: inline;">..</li>
+					</ul>
+					<aside class="notes">
+						<ul>
+							<li>HAL: IETF Draft, Mike Kelly, http://tools.ietf.org/html/draft-kelly-json-hal </li>
+							<li>JSON-LD: W3C Recommendation, M. Lanthaler, http://www.w3.org/TR/json-ld/</li>
+							<li>Hydra: Baut auf LSON-LD auf. W3C Unofficial draft M. Lanthaler, http://www.markus-lanthaler.com/hydra/spec/latest/core/ </li>
+							<li>Collection+JSON (vgl. mit Atom Feed) Mike Amunndsen, http://amundsen.com/media-types/collection/format/</li>
+							<li>Mason: Jørn Wildt (vgl. mit Siren, Hydra)</li>
+						</ul>
+					</aside>
+				</section>
+
+				<section data-transition="none">
+					<h2>HAL</h2>
+					
+					<pre><code data-trim>
+{
+  "_links": {
+    "self": {
+      "href": "http://otrosien:8081/pizzas"
+    }
+  },
+  "_embedded": {
+    "pizzas": [
+      {
+        "name": "Pizza Salami",
+        "description": "The classic"
+      }
+    ]
+  }
+}
+					</code>
+					</pre>
+				</section>
+
+
+				<section>
+					<h2>Spring-Data-REST</h2>
+					<p>Spring WebMVC <i class="fa fa-plus-square epred"></i> Spring-Data <i class="fa fa-plus-square epred"></i> Spring-HATEOAS</p>
+					<ul style="list-style-type: none; ">
+						<li class="fragment"><i class="fa fa-thumbs-o-up epgreen"></i> Repositories as resources with CRUD operations</li>
+						<li class="fragment"><i class="fa fa-thumbs-o-up epgreen"></i> Supports HAL + ALPS + JSON Schema</li>
+						<li class="fragment"><i class="fa fa-thumbs-o-down epred"></i> Ties your REST API to your data model</li>
+					</ul>
+					<p class="fragment"><a href="https://github.com/olivergierke/spring-restbucks"><i class="fa fa-github epred"></i> olivergierke/spring-restbucks</a>
+				</section>
+
+
+				<section>
+					<h2>Follow your nose API</h2>
+					<ul style="list-style-type: none; ">
+						<li class="fragment"><i class="fa fa-anchor epred"></i> Single well-known entry point</li>
+						<li class="fragment"><i class="fa fa-link epgreen"></i> Resources discoverable via link relations</li>
+					</ul>
+				</section>
+
+
+				<section data-state="epizza-off">
+					<h2>Documentation style</h2>
+					<ul style="list-style-type: none; ">
+						<li class="fragment"><i class="fa fa-thumbs-up epgreen"></i> Focus on problem domain</li>
+						<li class="fragment"><i class="fa fa-thumbs-up epgreen"></i> Focus on relations</li>
+						<li class="fragment"><i class="fa fa-thumbs-up epgreen"></i> Be consistent</li>
+						<li class="fragment"><i class="fa fa-thumbs-down epred"></i> Focus on URIs</li>
+						<li class="fragment"><i class="fa fa-thumbs-down epred"></i> Repeating the obvious</li>
+					</ul>
+				</section>
+
+				 <section data-state="epizza">
+                  <h2>The ePizza system</h2>
+                  <img src="img/epizza-system-overview.svg" style="border:none; box-shadow:none; background:none;"/>
+                  <p><i class="fa fa-github epred"></i> <a href="https://github.com/epages-de/rnd-microservices-handson">ePages-de/rnd-microservices-handson</a></p>
+
+				<aside class="notes">
+	- auf snippet generation eingehen. --> snippet in IntelliJ öffnen.
+				</aside>
+       		   </section>
+
+	          <section data-state="epizza-off">
+	          		<h2>Demo</h2>
+	          		<img src="img/action.png" style="border:0px; "/>
+	          </section>
+	
+	          <section data-state="epizza-off">
+	          		<h2>Learnings</h2>
+	          		<ul style="list-style-type: none; ">
+	          			<li class="fragment"><i class="fa fa-mortar-board epgreen"></i> IDL standards are still evolving</li>
+	          			<li class="fragment"><i class="fa fa-mortar-board epred"></i> Tool-support (usually) still poor</li>
+	          			<li class="fragment"><i class="fa fa-mortar-board epgreen"></i> Be correct, complete and current</li>
+	          		</ul>
+	          </section>
+	
+
+				<section>
+					<h2 style="font-size:400%;">Thank you!</h2>
+					<p style="text-align: center;">For more info, feel free to contact us<br/>
+						<a href="http://twitter.com/intent/tweet?status=@epagesdevs"><i class="fa fa-twitter epgreen"></i> <em>@epagesdevs</em></a><br/>
+						<a href="http://www.epages.com/devjobs"><i class="fa fa-user-plus epred"></i> epages.com/devjobs</a><br/>
+						<a href="mailto:otrosien@epages.com"><i class="fa fa-send-o epgreen"></i> <em>otrosien@epages.com</em></a><br/>
+						<a href="https://github.com/ePages-de/codetalks2015"><i class="fa fa-github epred"></i> ePages-de/codetalks2015</a>
+					</p>
+				</section>
+				<aside class="notes">
+				repeat: we're hiring.
+				http://sookocheff.com/post/api/on-choosing-a-hypermedia-format/
+				</aside>
+			</div>
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+
+			// Full list of configuration options available at:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+				transition: 'zoom',
+
+				  // Parallax background image
+			    parallaxBackgroundImage: 'img/parallax-bg.jpg', // e.g. "https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg"
+
+			    // Parallax background size
+			    parallaxBackgroundSize: '2693px 1307px', // CSS syntax, e.g. "2100px 900px" - currently only pixels are supported (don't use % or auto)
+
+				// Optional reveal.js plugins
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true }
+				]
+			});
+
+		</script>
+
+		<script>
+		Reveal.addEventListener( 'epizza', function() {
+			document.querySelector( '.fork-repo' ).style.display = 'block';
+		} );
+		</script>
+		
+		<script>
+		Reveal.addEventListener( 'epizza-off', function() {
+			document.querySelector( '.fork-repo' ).style.display = 'none';
+		} );
+		</script>
+	</body>
+</html>
