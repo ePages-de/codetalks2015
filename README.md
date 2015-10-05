@@ -4,4 +4,4 @@ Software-Dokumentation gehört nicht zu den Lieblingsthemen eines Entwicklers. B
 
 https://www.codetalks.de/2015/programm/documented-and-tested-microservices-for-fun-and-profit
 
-Open the index.html or ()
+Open the index.html or download the [pdf](Documenting REST APIs.pdf) to access the presentation
